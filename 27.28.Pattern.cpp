@@ -1,21 +1,26 @@
 #include <stdio.h>
-unsigned long long binomialCoeff(int n, int k) {
-    unsigned long long C[n + 1][k + 1];
-    int i, j;
 
-    for (i = 0; i <= n; i++) {
-        for (j = 0; j <= k && j <= i; j++) {
-            if (j == 0 || j == i)
-                C[i][j] = 1;
-            else
-                C[i][j] = C[i - 1][j - 1] + C[i - 1][j];
-        }
+void printPattern(int n, int i, int j) {
+    if (i > n) {
+        return;
     }
-    return C[n][k];
+    
+    if (j > i) {
+        printf("\n");
+        printPattern(n, i + 1, 1);
+        return;
+    }
+
+    printf("%d ", j);
+    printPattern(n, i, j + 1);
 }
+
 int main() {
-    int n = 5, k = 2;
-    printf("Binomial coefficient of (%d, %d) is %llu\n", n, k, binomialCoeff(n, k));
+    int n;
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+    
+    printPattern(n, 1, 1);
+    
     return 0;
 }
-
